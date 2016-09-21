@@ -45,7 +45,7 @@ namespace SurviveTheAliensServer.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != historia.Id)
+            if (id != historia.id)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace SurviveTheAliensServer.Controllers
             db.Historias.Add(historia);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = historia.Id }, historia);
+            return CreatedAtRoute("DefaultApi", new { id = historia.id }, historia);
         }
 
         // DELETE: api/Historias/5
@@ -113,7 +113,7 @@ namespace SurviveTheAliensServer.Controllers
 
         private bool HistoriaExists(int id)
         {
-            return db.Historias.Count(e => e.Id == id) > 0;
+            return db.Historias.Count(e => e.id == id) > 0;
         }
     }
 }

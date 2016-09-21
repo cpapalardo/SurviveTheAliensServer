@@ -19,7 +19,9 @@ namespace SurviveTheAliensServer
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+			//Remove formato XML.
 			config.Formatters.Remove(config.Formatters.XmlFormatter);
+			//Indenta Json
 			config.Formatters.JsonFormatter.Indent = true;
         }
     }

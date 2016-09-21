@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace SurviveTheAliensServer.Models.Mapping
@@ -8,24 +8,21 @@ namespace SurviveTheAliensServer.Models.Mapping
         public HistoriaMap()
         {
             // Primary Key
-            this.HasKey(t => t.Id);
+            this.HasKey(t => t.id);
 
             // Properties
-            this.Property(t => t.Nome)
+            this.Property(t => t.nome)
                 .IsRequired()
                 .HasMaxLength(1);
 
+            this.Property(t => t.descricao)
+                .HasMaxLength(50);
+
             // Table & Column Mappings
             this.ToTable("Historia");
-            this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.Nome).HasColumnName("Nome");
-            this.Property(t => t.id_capitulo).HasColumnName("id_capitulo");
-
-            // Relationships
-            this.HasOptional(t => t.Capitulo)
-                .WithMany(t => t.Historias)
-                .HasForeignKey(d => d.id_capitulo);
-
+            this.Property(t => t.id).HasColumnName("id");
+            this.Property(t => t.nome).HasColumnName("nome");
+            this.Property(t => t.descricao).HasColumnName("descricao");
         }
     }
 }

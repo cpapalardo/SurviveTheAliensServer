@@ -5,9 +5,14 @@ namespace SurviveTheAliensServer.Models
 {
     public partial class Historia
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public Nullable<int> id_capitulo { get; set; }
-        public virtual Capitulo Capitulo { get; set; }
+        public Historia()
+        {
+            this.Capituloes = new List<Capitulo>();
+        }
+
+        public int id { get; set; }
+        public string nome { get; set; }
+        public string descricao { get; set; }
+        public virtual ICollection<Capitulo> Capituloes { get; set; }
     }
 }

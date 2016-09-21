@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace SurviveTheAliensServer.Models.Mapping
@@ -20,6 +20,13 @@ namespace SurviveTheAliensServer.Models.Mapping
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.TempoDeMissao).HasColumnName("TempoDeMissao");
             this.Property(t => t.Nome).HasColumnName("Nome");
+            this.Property(t => t.id_Capitulo).HasColumnName("id_Capitulo");
+
+            // Relationships
+            this.HasRequired(t => t.Capitulo)
+                .WithMany(t => t.Missaos)
+                .HasForeignKey(d => d.id_Capitulo);
+
         }
     }
 }
