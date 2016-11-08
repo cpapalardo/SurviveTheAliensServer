@@ -8,30 +8,23 @@ namespace SurviveTheAliensServer.Models.Mapping
         public CapituloMap()
         {
             // Primary Key
-            this.HasKey(t => t.id);
+            this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.nome)
+            this.Property(t => t.Nome)
                 .IsRequired()
-                .HasMaxLength(1);
+                .HasMaxLength(20);
 
-            this.Property(t => t.descricao)
+            this.Property(t => t.Descricao)
                 .IsRequired()
-                .HasMaxLength(1);
+                .HasMaxLength(30);
 
             // Table & Column Mappings
             this.ToTable("Capitulo");
-            this.Property(t => t.id).HasColumnName("id");
-            this.Property(t => t.numero).HasColumnName("numero");
-            this.Property(t => t.id_historia).HasColumnName("id_historia");
-            this.Property(t => t.nome).HasColumnName("nome");
-            this.Property(t => t.descricao).HasColumnName("descricao");
-
-            // Relationships
-            this.HasOptional(t => t.Historia)
-                .WithMany(t => t.Capituloes)
-                .HasForeignKey(d => d.id_historia);
-
+            this.Property(t => t.Id).HasColumnName("Id");
+            this.Property(t => t.Numero).HasColumnName("Numero");
+            this.Property(t => t.Nome).HasColumnName("Nome");
+            this.Property(t => t.Descricao).HasColumnName("Descricao");
         }
     }
 }

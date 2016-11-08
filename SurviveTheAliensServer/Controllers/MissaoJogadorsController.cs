@@ -45,7 +45,7 @@ namespace SurviveTheAliensServer.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != missaoJogador.id)
+            if (id != missaoJogador.Id)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace SurviveTheAliensServer.Controllers
             db.MissaoJogadors.Add(missaoJogador);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = missaoJogador.id }, missaoJogador);
+            return CreatedAtRoute("DefaultApi", new { id = missaoJogador.Id }, missaoJogador);
         }
 
         // DELETE: api/MissaoJogadors/5
@@ -113,7 +113,7 @@ namespace SurviveTheAliensServer.Controllers
 
         private bool MissaoJogadorExists(int id)
         {
-            return db.MissaoJogadors.Count(e => e.id == id) > 0;
+            return db.MissaoJogadors.Count(e => e.Id == id) > 0;
         }
     }
 }

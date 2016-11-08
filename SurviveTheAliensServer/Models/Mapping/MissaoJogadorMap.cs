@@ -8,17 +8,24 @@ namespace SurviveTheAliensServer.Models.Mapping
         public MissaoJogadorMap()
         {
             // Primary Key
-            this.HasKey(t => t.id);
+            this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
             // Table & Column Mappings
             this.ToTable("MissaoJogador");
-            this.Property(t => t.id).HasColumnName("id");
-            this.Property(t => t.id_missao).HasColumnName("id_missao");
-            this.Property(t => t.id_jogador).HasColumnName("id_jogador");
+            this.Property(t => t.Id).HasColumnName("Id");
+            this.Property(t => t.Id_Missao).HasColumnName("Id_Missao");
+            this.Property(t => t.Id_Jogador).HasColumnName("Id_Jogador");
+            this.Property(t => t.Liberada).HasColumnName("Liberada");
+
+            // Relationships
+            this.HasRequired(t => t.Jogador)
+                .WithMany(t => t.MissaoJogadors)
+                .HasForeignKey(d => d.Id_Jogador);
+            this.HasRequired(t => t.Missao)
+                .WithMany(t => t.MissaoJogadors)
+                .HasForeignKey(d => d.Id_Missao);
+
         }
     }
 }

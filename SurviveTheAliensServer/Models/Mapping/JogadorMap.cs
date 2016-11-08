@@ -13,24 +13,23 @@ namespace SurviveTheAliensServer.Models.Mapping
             // Properties
             this.Property(t => t.Nome)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(100);
 
             this.Property(t => t.Apelido)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(20);
 
             this.Property(t => t.Genero)
                 .IsRequired()
-                .IsFixedLength()
                 .HasMaxLength(1);
 
             this.Property(t => t.Email)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(20);
 
             this.Property(t => t.Senha)
                 .IsRequired()
-                .HasMaxLength(10);
+                .HasMaxLength(16);
 
             // Table & Column Mappings
             this.ToTable("Jogador");
@@ -40,9 +39,8 @@ namespace SurviveTheAliensServer.Models.Mapping
             this.Property(t => t.Genero).HasColumnName("Genero");
             this.Property(t => t.Email).HasColumnName("Email");
             this.Property(t => t.Senha).HasColumnName("Senha");
-            this.Property(t => t.DataCadastro).HasColumnName("DataCadastro");
             this.Property(t => t.HorasJogadas).HasColumnName("HorasJogadas");
-            this.Property(t => t.kmCaminhados).HasColumnName("kmCaminhados");
+            this.Property(t => t.KmCaminhados).HasColumnName("KmCaminhados");
         }
     }
 }

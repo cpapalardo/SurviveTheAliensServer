@@ -45,7 +45,7 @@ namespace SurviveTheAliensServer.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != capitulo.id)
+            if (id != capitulo.Id)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace SurviveTheAliensServer.Controllers
             db.Capituloes.Add(capitulo);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = capitulo.id }, capitulo);
+            return CreatedAtRoute("DefaultApi", new { id = capitulo.Id }, capitulo);
         }
 
         // DELETE: api/Capituloes/5
@@ -113,7 +113,7 @@ namespace SurviveTheAliensServer.Controllers
 
         private bool CapituloExists(int id)
         {
-            return db.Capituloes.Count(e => e.id == id) > 0;
+            return db.Capituloes.Count(e => e.Id == id) > 0;
         }
     }
 }

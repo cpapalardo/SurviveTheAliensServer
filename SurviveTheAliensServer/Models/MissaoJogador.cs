@@ -5,8 +5,11 @@ namespace SurviveTheAliensServer.Models
 {
     public partial class MissaoJogador
     {
-        public int id { get; set; }
-        public int id_missao { get; set; }
-        public int id_jogador { get; set; }
+        public int Id { get; set; }
+        public int Id_Missao { get; set; }
+        public int Id_Jogador { get; set; }
+        public bool Liberada { get; set; }
+        public virtual Jogador Jogador { get; set; }
+        public virtual Missao Missao { get; set; }
     }
 }

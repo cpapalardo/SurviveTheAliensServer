@@ -115,5 +115,12 @@ namespace SurviveTheAliensServer.Controllers
         {
             return db.Jogadors.Count(e => e.Id == id) > 0;
         }
+
+        [Route("api/Jogadors/{email}/{senha}")]
+        private Jogador AutenticarJogador(string email, string senha)
+        {
+            SurviveAliensContext context = new SurviveAliensContext();
+            return context.Jogadors.First(x => x.Email == email && x.Senha == senha);
+        }
     }
 }
