@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using SurviveTheAliensServer.Models;
+using System.Text.RegularExpressions;
 
 namespace SurviveTheAliensServer.Controllers
 {
@@ -68,7 +69,8 @@ namespace SurviveTheAliensServer.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            //return StatusCode(HttpStatusCode.NoContent);
+            return Ok(jogador);
         }
 
         // POST: api/Jogadors
@@ -117,10 +119,13 @@ namespace SurviveTheAliensServer.Controllers
         }
 
         [Route("api/Jogadors/{email}/{senha}")]
+        [ResponseType(typeof(Jogador))]
         private Jogador AutenticarJogador(string email, string senha)
         {
-            SurviveAliensContext context = new SurviveAliensContext();
-            return context.Jogadors.First(x => x.Email == email && x.Senha == senha);
+            //string separators = "----";
+            //string[] tokens = Regex.Split(emailsenha, separators);
+            //return context.Jogadors.First(x => x.Email == tokens[0] && x.Senha == tokens[1]);
+            return db.Jogadors.First(x => x.Email == email && x.Senha == senha);
         }
     }
 }
