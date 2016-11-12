@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Teste.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -118,6 +117,7 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AutenticacaoController.cs" />
     <Compile Include="Controllers\CapituloesController.cs" />
     <Compile Include="Controllers\JogadorsController.cs" />
     <Compile Include="Controllers\MissaoJogadorsController.cs" />
@@ -137,18 +137,13 @@
     <Compile Include="Models\MissaoJogador.cs" />
     <Compile Include="Models\SurviveAliensContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Teste.aspx.cs">
-      <DependentUpon>Teste.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Teste.aspx.designer.cs">
-      <DependentUpon>Teste.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
+    <None Include="Properties\PublishProfiles\SurviveTheAliens - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\SurviveTheAliens - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\SurviveTheAliens.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
