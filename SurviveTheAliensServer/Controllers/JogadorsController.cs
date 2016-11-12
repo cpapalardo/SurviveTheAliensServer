@@ -138,19 +138,7 @@ namespace SurviveTheAliensServer.Controllers
 				return NotFound();
 			}
 
-			return Ok(jogador);
-		}
-
-		[ResponseType(typeof(Jogador))]
-		public async Task<IHttpActionResult> GetJogador(int id)
-		{
-			Jogador jogador = await db.Jogadors.FindAsync(id);
-			if (jogador == null)
-			{
-				return NotFound();
-			}
-
-			return Ok(jogador);
+			return Ok();
 		}
 	}
 }
