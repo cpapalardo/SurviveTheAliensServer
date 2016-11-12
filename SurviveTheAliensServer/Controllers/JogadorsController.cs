@@ -127,5 +127,30 @@ namespace SurviveTheAliensServer.Controllers
             //return context.Jogadors.First(x => x.Email == tokens[0] && x.Senha == tokens[1]);
             return db.Jogadors.First(x => x.Email == email && x.Senha == senha);
         }
-    }
+
+		[ResponseType(typeof(Jogador))]
+		public async Task<IHttpActionResult> Autenticar(string login, string senha)
+		{
+			Jogador jogador = null; // código de consulta por login e senha
+
+			if (jogador == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(jogador);
+		}
+
+		[ResponseType(typeof(Jogador))]
+		public async Task<IHttpActionResult> GetJogador(int id)
+		{
+			Jogador jogador = await db.Jogadors.FindAsync(id);
+			if (jogador == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(jogador);
+		}
+	}
 }
