@@ -118,14 +118,17 @@ namespace SurviveTheAliensServer.Controllers
             return db.Jogadors.Count(e => e.Id == id) > 0;
         }
 
-        [Route("api/Jogadors/{email}/{senha}")]
+        [Route("api/Autenticar/creds")]
         [ResponseType(typeof(Jogador))]
-        private Jogador AutenticarJogador(string email, string senha)
+        public async Task<IHttpActionResult> AutenticarJogador(Credenciais credenciais)
         {
             //string separators = "----";
             //string[] tokens = Regex.Split(emailsenha, separators);
             //return context.Jogadors.First(x => x.Email == tokens[0] && x.Senha == tokens[1]);
-            return db.Jogadors.First(x => x.Email == email && x.Senha == senha);
+            Jogador jogador =  db.Jogadors.First(x => x.Email == credenciais.Email && x.Senha == credenciais.Senha);
+			if (jogador == null)
+				return NotFound();
+			return Ok(jogador);
         }
 
 		[ResponseType(typeof(Jogador))]

@@ -126,6 +126,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Capitulo.cs" />
+    <Compile Include="Models\Credenciais.cs" />
     <Compile Include="Models\database_firewall_rules.cs" />
     <Compile Include="Models\Jogador.cs" />
     <Compile Include="Models\Mapping\CapituloMap.cs" />
