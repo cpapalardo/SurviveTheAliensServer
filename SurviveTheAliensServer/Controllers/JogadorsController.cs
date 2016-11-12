@@ -85,7 +85,23 @@ namespace SurviveTheAliensServer.Controllers
             db.Jogadors.Add(jogador);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = jogador.Id }, jogador);
+			var missoes = db.Missaos.ToList();
+			List<MissaoJogador> missaoJogadorList = new List<MissaoJogador>();
+			foreach(Missao mi in missoes)
+			{
+				MissaoJogador missaoJogador = new MissaoJogador();
+				missaoJogador.Id_Missao = mi.Id;
+				missaoJogador.Id_Jogador = jogador.Id;
+				if (mi.Id == 1)
+					missaoJogador.Liberada = true;
+				else
+					missaoJogador.Liberada = false;
+
+				missaoJogadorList.Add(missaoJogador);
+			}
+
+			db.MissaoJogadors.AddRange(missaoJogadorList);
+            return CreatedAtRoute("DefaultApi", new { id = jogador.Id }, jogador);					
         }
 
         // DELETE: api/Jogadors/5
