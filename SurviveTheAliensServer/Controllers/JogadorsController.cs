@@ -92,7 +92,8 @@ namespace SurviveTheAliensServer.Controllers
 				MissaoJogador missaoJogador = new MissaoJogador();
 				missaoJogador.Id_Missao = mi.Id;
 				missaoJogador.Id_Jogador = jogador.Id;
-				if (mi.Id == 1)
+				//ao criar um novo usuário, só libera a primeira missão do primeiro capítulo
+				if (mi.Numero == 1 && mi.Capitulo.Numero == 1)
 					missaoJogador.Liberada = true;
 				else
 					missaoJogador.Liberada = false;
@@ -101,7 +102,8 @@ namespace SurviveTheAliensServer.Controllers
 			}
 
 			db.MissaoJogadors.AddRange(missaoJogadorList);
-            return CreatedAtRoute("DefaultApi", new { id = jogador.Id }, jogador);					
+			await db.SaveChangesAsync();
+			return CreatedAtRoute("DefaultApi", new { id = jogador.Id }, jogador);					
         }
 
         // DELETE: api/Jogadors/5

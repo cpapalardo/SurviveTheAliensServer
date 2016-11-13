@@ -21,12 +21,13 @@ namespace SurviveTheAliensServer.Models.Mapping
             this.Property(t => t.Nome).HasColumnName("Nome");
             this.Property(t => t.Id_Capitulo).HasColumnName("Id_Capitulo");
             this.Property(t => t.KmDeMissao).HasColumnName("KmDeMissao");
+			Property(t => t.Numero).HasColumnName("Numero");
 
-            // Relationships
-            this.HasOptional(t => t.Capitulo)
-                .WithMany(t => t.Missaos)
-                .HasForeignKey(d => d.Id_Capitulo);
+			// Relationships
+			this.HasOptional(t => t.Capitulo)
+				.WithMany(t => t.Missaos)
+				.HasForeignKey(d => d.Id_Capitulo);
 
-        }
+		}
     }
 }

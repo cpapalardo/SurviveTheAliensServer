@@ -1,9 +1,11 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
 namespace SurviveTheAliensServer.Models
 {
-    public partial class Capitulo
+	[JsonObject(IsReference = true)]
+	public partial class Capitulo
     {
         public Capitulo()
         {
@@ -14,6 +16,7 @@ namespace SurviveTheAliensServer.Models
         public int Numero { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
-        public virtual ICollection<Missao> Missaos { get; set; }
+		[JsonIgnore]
+		public virtual ICollection<Missao> Missaos { get; set; }
     }
 }

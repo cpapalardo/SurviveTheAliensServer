@@ -25,19 +25,37 @@ namespace SurviveTheAliensServer.Controllers
 
         // GET: api/MissaoJogadors/5
         [ResponseType(typeof(MissaoJogador))]
-        public async Task<IHttpActionResult> GetMissaoJogador(int id)
+        public IQueryable<MissaoJogador> GetMissaoJogador(int id)
         {
-            MissaoJogador missaoJogador = await db.MissaoJogadors.FindAsync(id);
-            if (missaoJogador == null)
-            {
-                return NotFound();
-            }
+			 return db.MissaoJogadors.Where(x => x.Id_Jogador == id);
+            //MissaoJogador missaoJogador = await db.MissaoJogadors.FindAsync(id);
+            //if (missaoJogador == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return Ok(missaoJogador);
+            //return Ok(missaoJogador);
         }
 
-        // PUT: api/MissaoJogadors/5
-        [ResponseType(typeof(void))]
+		[HttpPost]
+		[Route("api/MissaoJogador/porJogador")]
+		[ResponseType(typeof(IList<MissaoJogador>))]
+		public async Task<IHttpActionResult> GetMissaoByPlayerId(Jogador jogador)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var query = db.MissaoJogadors.Where(x => x.Id_Jogador == jogador.Id);
+			IList<MissaoJogador> missaoJogadorList = query.ToList();
+
+			return Ok(missaoJogadorList);
+		}
+
+
+		// PUT: api/MissaoJogadors/5
+		[ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutMissaoJogador(int id, MissaoJogador missaoJogador)
         {
             if (!ModelState.IsValid)
