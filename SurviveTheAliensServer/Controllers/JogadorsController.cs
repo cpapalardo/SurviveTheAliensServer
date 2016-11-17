@@ -82,6 +82,11 @@ namespace SurviveTheAliensServer.Controllers
                 return BadRequest(ModelState);
             }
 
+			Jogador jog = db.Jogadors.First(x => x.Email == jogador.Email);
+			if(jog.Id != null)
+			{
+				return BadRequest("E-mail já cadastrado.");
+			}
             db.Jogadors.Add(jogador);
             await db.SaveChangesAsync();
 
