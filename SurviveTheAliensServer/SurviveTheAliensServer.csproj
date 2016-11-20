@@ -138,6 +138,7 @@
     <Compile Include="Models\MissaoJogador.cs" />
     <Compile Include="Models\SurviveAliensContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sql.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using SurviveTheAliensServer.Models;
+using System.Data.SqlClient;
 
 namespace SurviveTheAliensServer.Controllers
 {
@@ -18,41 +19,61 @@ namespace SurviveTheAliensServer.Controllers
         private SurviveAliensContext db = new SurviveAliensContext();
 
         // GET: api/MissaoJogadors
-        public IQueryable<MissaoJogador> GetMissaoJogadors()
+        public IEnumerable<MissaoJogador> GetMissaoJogadors()
         {
-            return db.MissaoJogadors;
-        }
+			using (SqlConnection conn = Sql.Open())
+			{
+				using (SqlCommand cmd = new SqlCommand("SELECT Id, Id_Missao, Id_Jogador, Liberada FROM MissaoJogador", conn))
+				{
+					using (SqlDataReader reader = cmd.ExecuteReader())
+					{
+
+						List<MissaoJogador> missaoJogadorList = new List<MissaoJogador>();
+						//Obtém os registros, um por vez
+						while (reader.Read() == true)
+						{
+							int id = reader.GetInt32(0);
+							int id_missao = reader.GetInt32(1);
+							int id_jogador = reader.GetInt32(2);
+							bool liberada = reader.GetBoolean(3);
+
+							missaoJogadorList.Add(new MissaoJogador(id, id_missao, id_jogador, liberada));
+						}
+						return missaoJogadorList;
+					}
+				}
+			}
+		}
 
         // GET: api/MissaoJogadors/5
         [ResponseType(typeof(MissaoJogador))]
-        public IQueryable<MissaoJogador> GetMissaoJogador(int id)
+        public IEnumerable<MissaoJogador> GetMissaoJogador(int id)
         {
-			 return db.MissaoJogadors.Where(x => x.Id_Jogador == id);
-            //MissaoJogador missaoJogador = await db.MissaoJogadors.FindAsync(id);
-            //if (missaoJogador == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return Ok(missaoJogador);
-        }
-
-		[HttpPost]
-		[Route("api/MissaoJogador/porJogador")]
-		[ResponseType(typeof(IList<MissaoJogador>))]
-		public async Task<IHttpActionResult> GetMissaoByPlayerId(Jogador jogador)
-		{
-			if (!ModelState.IsValid)
+			using (SqlConnection conn = Sql.Open())
 			{
-				return BadRequest(ModelState);
+				using (SqlCommand cmd = new SqlCommand("SELECT Id, Id_Missao, Id_Jogador, Liberada FROM MissaoJogador WHERE Id_Jogador = @Id_jogador", conn))
+				{
+					cmd.Parameters.AddWithValue("@Id_Jogador", id);
+					using (SqlDataReader reader = cmd.ExecuteReader())
+					{
+
+						List<MissaoJogador> missaoJogadorList = new List<MissaoJogador>();
+						//Obtém os registros, um por vez
+						while (reader.Read() == true)
+						{
+							int idMissaoJogador = reader.GetInt32(0);
+							int id_missao = reader.GetInt32(1);
+							int id_jogador = reader.GetInt32(2);
+							bool liberada = reader.GetBoolean(3);
+
+							missaoJogadorList.Add(new MissaoJogador(idMissaoJogador, id_missao, id_jogador, liberada));
+						}
+						return missaoJogadorList;
+					}
+				}
 			}
-
-			var query = db.MissaoJogadors.Where(x => x.Id_Jogador == jogador.Id);
-			IList<MissaoJogador> missaoJogadorList = query.ToList();
-
-			return Ok(missaoJogadorList);
-		}
-
+			//return db.MissaoJogadors.Where(x => x.Id_Jogador == id);
+        }
 
 		// PUT: api/MissaoJogadors/5
 		[ResponseType(typeof(void))]

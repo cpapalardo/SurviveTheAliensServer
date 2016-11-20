@@ -22,6 +22,9 @@ namespace SurviveTheAliensServer.Models.Mapping
             this.Property(t => t.Id_Capitulo).HasColumnName("Id_Capitulo");
             this.Property(t => t.KmDeMissao).HasColumnName("KmDeMissao");
 			Property(t => t.Numero).HasColumnName("Numero");
+			Property(t => t.KmIntro).HasColumnName("KmIntro");
+			Property(t => t.KmApice).HasColumnName("kmApice");
+			Property(t => t.KmFim).HasColumnName("KmFim");
 
 			// Relationships
 			this.HasOptional(t => t.Capitulo)

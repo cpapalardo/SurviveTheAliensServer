@@ -24,7 +24,7 @@ namespace SurviveTheAliensServer
 			//Indenta Json
 			config.Formatters.JsonFormatter.Indent = true;
 			//ignora referência circular
-			config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+			//config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 		}
     }
 }

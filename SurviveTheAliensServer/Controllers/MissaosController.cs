@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using SurviveTheAliensServer.Models;
+using System.Data.SqlClient;
 
 namespace SurviveTheAliensServer.Controllers
 {
@@ -18,22 +19,68 @@ namespace SurviveTheAliensServer.Controllers
         private SurviveAliensContext db = new SurviveAliensContext();
 
         // GET: api/Missaos
-        public IQueryable<Missao> GetMissaos()
+        public IEnumerable<Missao> GetMissaos()
         {
-            return db.Missaos;
-        }
+			using (SqlConnection conn = Sql.Open())
+			{
+				using (SqlCommand cmd = new SqlCommand("SELECT Id, Nome, Id_Capitulo, KmDeMissao, Numero, KmIntro, KmApice, KmFim FROM Missao", conn))
+				{
+					using (SqlDataReader reader = cmd.ExecuteReader())
+					{
+						List<Missao> missaoList = new List<Missao>();
+						//Obtém os registros, um por vez
+						while (reader.Read() == true)
+						{
+							int id = reader.GetInt32(0);
+							string nome = reader.GetString(1);
+							int idCapitulo = reader.GetInt32(2);
+							float kmDeMissao = reader.GetFloat(3);
+							int numero = reader.GetInt32(4);
+							float KmIntro = reader.GetFloat(5);
+							float KmApice = reader.GetFloat(6);
+							float KmFim = reader.GetFloat(7);
+
+
+							missaoList.Add(new Missao(id, nome, idCapitulo, kmDeMissao, numero, KmIntro, KmApice, KmFim));
+						}
+						return missaoList;
+					}
+				}
+			}
+		}
 
         // GET: api/Missaos/5
         [ResponseType(typeof(Missao))]
         public async Task<IHttpActionResult> GetMissao(int id)
         {
-            Missao missao = await db.Missaos.FindAsync(id);
-            if (missao == null)
-            {
-                return NotFound();
-            }
+			using (SqlConnection conn = Sql.Open())
+			{
+				using (SqlCommand cmd = new SqlCommand("SELECT Id, Nome, Id_Capitulo, KmDeMissao, Numero, KmIntro, KmApice, KmFim FROM Missao WHERE Id = @Id", conn))
+				{
+					cmd.Parameters.AddWithValue("@id", id);
+					using (SqlDataReader reader = cmd.ExecuteReader())
+					{
+						Missao missao = new Missao();
+						//Obtém os registros, um por vez
+						while (reader.Read() == true)
+						{
+							int idMissao = reader.GetInt32(0);
+							string nome = reader.GetString(1);
+							int idCapitulo = reader.GetInt32(2);
+							float kmDeMissao = reader.GetFloat(3);
+							int numero = reader.GetInt32(4);
+							float KmIntro = reader.GetFloat(5);
+							float KmApice = reader.GetFloat(6);
+							float KmFim = reader.GetFloat(7);
 
-            return Ok(missao);
+							missao = new Missao(id, nome, idCapitulo, kmDeMissao, numero, KmIntro, KmApice, KmFim);
+						}
+						if(missao.Id <= 0)
+							return NotFound();
+						return Ok(missao);
+					}
+				}
+			}
         }
 
         // PUT: api/Missaos/5

@@ -25,7 +25,7 @@ namespace SurviveTheAliensServer.Models.Mapping
 
             this.Property(t => t.Email)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(50);
 
             this.Property(t => t.Senha)
                 .IsRequired()

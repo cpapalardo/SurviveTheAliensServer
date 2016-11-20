@@ -5,6 +5,19 @@ namespace SurviveTheAliensServer.Models
 {
     public partial class Jogador
     {
+		public Jogador(int Id, string Nome, string Apelido, string Genero,
+			string Email, string Senha, float HorasJogadas, float KmCaminhados)
+		{
+			this.Id = Id;
+			this.Nome = Nome;
+			this.Apelido = Apelido;
+			this.Genero = Genero;
+			this.Email = Email;
+			this.Senha = Senha;
+			this.HorasJogadas = HorasJogadas;
+			this.KmCaminhados = KmCaminhados;
+		}
+
         public Jogador()
         {
             this.MissaoJogadors = new List<MissaoJogador>();
@@ -16,8 +29,8 @@ namespace SurviveTheAliensServer.Models
         public string Genero { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
-        public int HorasJogadas { get; set; }
-        public int KmCaminhados { get; set; }
+        public float HorasJogadas { get; set; }
+        public float KmCaminhados { get; set; }
         public virtual ICollection<MissaoJogador> MissaoJogadors { get; set; }
     }
 }
